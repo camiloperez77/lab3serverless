@@ -1,0 +1,27 @@
+{
+  "name": "crud-mascotas",
+  "version": "1.0.0",
+  "description": "API REST CRUD serverless de mascotas con AWS Lambda, API Gateway y DynamoDB",
+  "main": "handler.js",
+  "scripts": {
+    "offline": "serverless offline",
+    "deploy": "serverless deploy",
+    "remove": "serverless remove"
+  },
+  "keywords": [
+    "serverless",
+    "aws",
+    "lambda",
+    "dynamodb",
+    "api-gateway",
+    "crud"
+  ],
+  "license": "MIT",
+  "dependencies": {
+    "@aws-sdk/client-dynamodb": "^3.650.0",
+    "@aws-sdk/lib-dynamodb": "^3.650.0"
+  },
+  "devDependencies": {
+    "serverless-offline": "^13.6.0"
+  }
+}

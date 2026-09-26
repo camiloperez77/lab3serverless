@@ -1,0 +1,72 @@
+org: universidaddeantioquia
+app: crud-mascotas
+service: crud-mascotas
+
+provider:
+  name: aws
+  runtime: nodejs20.x
+  architecture: arm64
+  region: us-east-1
+  environment:
+    MASCOTAS_TABLE: ${self:service}-mascotas-${sls:stage}
+  iam:
+    role:
+      statements:
+        - Effect: Allow
+          Action:
+            - dynamodb:PutItem
+            - dynamodb:GetItem
+            - dynamodb:Scan
+            - dynamodb:UpdateItem
+            - dynamodb:DeleteItem
+          Resource:
+            - Fn::GetAtt: [MascotasTable, Arn]
+
+functions:
+  crear:
+    handler: handler.crear
+    events:
+      - httpApi:
+          path: /mascotas
+          method: post
+  listar:
+    handler: handler.listar
+    events:
+      - httpApi:
+          path: /mascotas
+          method: get
+  obtener:
+    handler: handler.obtener
+    events:
+      - httpApi:
+          path: /mascotas/{id}
+          method: get
+  actualizar:
+    handler: handler.actualizar
+    events:
+      - httpApi:
+          path: /mascotas/{id}
+          method: put
+  eliminar:
+    handler: handler.eliminar
+    events:
+      - httpApi:
+          path: /mascotas/{id}
+          method: delete
+
+resources:
+  Resources:
+    MascotasTable:
+      Type: AWS::DynamoDB::Table
+      Properties:
+        TableName: ${self:provider.environment.MASCOTAS_TABLE}
+        BillingMode: PAY_PER_REQUEST
+        AttributeDefinitions:
+          - AttributeName: id
+            AttributeType: S
+        KeySchema:
+          - AttributeName: id
+            KeyType: HASH
+
+plugins:
+  - serverless-offline
