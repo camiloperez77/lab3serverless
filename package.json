@@ -18,8 +18,8 @@
   ],
   "license": "MIT",
   "dependencies": {
-    "@aws-sdk/client-dynamodb": "^3.650.0",
-    "@aws-sdk/lib-dynamodb": "^3.650.0"
+    "@aws-sdk/client-dynamodb": "^3.1141.0",
+    "@aws-sdk/lib-dynamodb": "^3.1141.0"
   },
   "devDependencies": {
     "serverless-offline": "^13.6.0"
